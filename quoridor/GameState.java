@@ -1,6 +1,7 @@
 package quoridor;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class GameState {
 	
@@ -17,6 +18,33 @@ public class GameState {
 		turn = player1;
 		other = player2;
 		walls = new HashMap<Position, Orientation>();
+	}
+	
+	private boolean hasEdge(Position position, Orientation orientation) {
+		
+	}
+	
+	private LinkedList<Position> allAdjacent(Player player) {
+		LinkedList<Position> result = new LinkedList<Position>();
+		Position tmp;
+		if (player.currentPosition.getRow() > 0) {
+			tmp = new Position(player.currentPosition.getRow() - 1, player.currentPosition.getColumn());
+			if(walls.get(tmp) != Orientation.HORIZONTAL)
+				result.add(tmp);
+		}
+		if (player.currentPosition.getRow() < 8) {
+			if(walls.get(player.currentPosition) != Orientation.HORIZONTAL) {
+				tmp = new Position(player.currentPosition.getRow() + 1, player.currentPosition.getColumn());
+				result.add(tmp);
+			}
+		}
+		if (player.currentPosition.getColumn() < 8) {
+			if(walls.get(player.currentPosition) != Orientation.HORIZONTAL) {
+				tmp = new Position(player.currentPosition.getRow() + 1, player.currentPosition.getColumn());
+				result.add(tmp);
+			}
+		}
+		return result;
 	}
 	
 	public boolean parse(String move) {
